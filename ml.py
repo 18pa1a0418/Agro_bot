@@ -1,11 +1,18 @@
-import random
-import os
-print(os.getcwd())
-from datetime import datetime
-def greet_and_introduce():
+'''
+Now you gonna enter into a chatbot named "Agro_Bot".
+It is built on the objective of helping farmers especially beginners.
+Agro_bot can do two works. They are
+1. If you give the corresponding number of your soil type it will give the perfect crops for your soil type.
+2. If you give the corresponding number of your soil type it will give the characteristics of the soil that will
+    help you to understand your soil.
+'''
+
+import random                 # random is a library, it will give some random thing from your collection
+from datetime import datetime # datetime is a library to get the present time
+def greet_and_introduce():    # function to start the conversation
     return "Hi there! I am an agro_bot. I can help you to select a right crop for your soil and properties of the soil. May I know your name ?"
     
-def get_timeofday_greeting():
+def get_timeofday_greeting(): # function to wish the user accordingly..
     current_time = datetime.now()
     timeofday_greeting = "Good morning"
     if current_time.hour > 12 and current_time.hour<17:
@@ -16,25 +23,26 @@ def get_timeofday_greeting():
         timeofday_greeting = "Hi, That's late"
     return timeofday_greeting
 
-def welcome(name):
+def welcome(name):          # function to welcome the user with his/her name
     messages = [
         "Nice to meet you!"+" "+name,
-        "Good to see you."+" "+name
+        "Good to see you."+" "+name,
+        "Hey! what's up"+" "+name
     ]
     print(get_timeofday_greeting())
     print(random.choice(messages))
-def show_menu():
+def show_menu(): # function to show the things that bot can do
     print("The things I can do are ..")
     print("1.Know the correct crops for your soil")
     print("2.Know the properties of your soil")
     print("3.End of this chat")
-    print("------")
+    print("====================================")
     try: 
         return int(input("Enter your choice"))
     except:
         print("Only enter choice")
         return int(input("Enter your choice:"))
-def select_soil():
+def select_soil(): # function which gives the option to select the soil type
     print("1.Black soil")
     print("2.Red soil or Yellow soil")
     print("3.Aluvial soil")
@@ -48,7 +56,7 @@ def select_soil():
     except:
         print("please select corresponding number of your desired soil")
         return int(input("Enter your choice: "))
-def correct_crop (your_soil):
+def correct_crop (your_soil): # function to suggest the correct crop
     if your_soil==1:
         return  "cotton,rice,sugarcane,wheat,jowar,sunflower,ceralcrops,citrus fruits,vegetables,tobacco,groundnut,oil seedcrops and millets"
     elif your_soil==2:
@@ -65,7 +73,7 @@ def correct_crop (your_soil):
         return "millet and barly"
     elif your_soil==8:
         return "not suitable for cultivation"
-def characterstics_of_soil(your_soil):
+def characterstics_of_soil(your_soil): # function to give the characterstics of the particular soil
     if (your_soil==1):
         return "Rich in iron,lime,magnesium,aluminium. \n Poor in phosphorous,nitrogen and humus.Black soils become sticky when wet and develop cracks in any season."
     elif (your_soil==2):
@@ -82,27 +90,31 @@ def characterstics_of_soil(your_soil):
         return "These soils are sandy and dry and contains some amount of nitrogen."
     elif(your_soil==8):
         return "Not suitable for cultivation."
+'''
+Now we are at the main function, which is the back bone of the chatbot.
+Agro_bot is the main function which regulate everything in the bot.
+'''
 def Agro_bot():
     print(greet_and_introduce())
-    name = input("Your name: ")
+    name = input("Your name: ") # To take the username
     welcome(name)
-    choice = show_menu()
-    if (choice > 3 or choice <= 0):
+    choice = show_menu() # the duty of Agro_bot selected by a user is stored in choice.
+    if (choice > 3 or choice <= 0): # if the choice is not available, it will ask the another time
         print("Please enter right number shown above ^")
         print("=================================")
         choice = show_menu()
     while (choice <= 3 and choice > 0) :
         if choice == 1:
-            your_soil = select_soil()
+            your_soil = select_soil() # soil type selected by a user is stored in your_soil
             print(correct_crop(your_soil))
             print("=================================")
             choice = show_menu()
         elif(choice == 2):
-            your_soil = select_soil()
+            your_soil = select_soil() # soil type selected by a user is stored in your_soil
             print(characterstics_of_soil(your_soil))
             print("=================================")
             choice = show_menu()
         else:
-            print("Come back again !")
+            print("Come back again !") # here you will end the chat with agro_bot
             break
 Agro_bot()
